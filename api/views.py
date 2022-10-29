@@ -2,6 +2,7 @@ from itertools import product
 from django.shortcuts import render
 from django.views import View
 from .models import Company, Product
+from django.http import JsonResponse
 # Create your views here.
 class AddProductView(View):
  
@@ -47,5 +48,28 @@ class GetProduct(View):
             HTTP response
         """
         pass
+
+
+class getCompany(View):
+    def get(self, request):
+        """
+        Get a company by id
+        args:
+            request: HTTP request
+            id: company id
+        returns:
+            HTTP response
+        """
+        company = Company.objects.all()
+        company_json = {}
+        for c in company:
+            company_json[c.name] = {
+                'id': c.id,
+                'logo': c.logo,
+                'description': c.description,
+                'website': c.website
+            }
+        return JsonResponse(company_json, safe=False)
+
 
  
