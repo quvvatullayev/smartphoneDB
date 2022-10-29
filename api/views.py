@@ -24,6 +24,7 @@ class AddProductView(View):
         product.release_date = request.POST.get('release_date')
         product.company = Company.objects.get(id=request.POST.get('company'))
         product.save()
+        return JsonResponse({'message': 'Product added successfully'})
         
 
     def get(self, request):
