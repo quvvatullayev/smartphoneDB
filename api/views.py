@@ -1,10 +1,32 @@
 from itertools import product
+from platform import release
+from unicodedata import name
 from django.shortcuts import render
 from django.views import View
 from .models import Company, Product
 from django.http import JsonResponse
+from datetime import datetime,date
+class MainView(View):
+    def get(self,request):
+        company = Company.objects.get(name='Artel')
+
+        product = Product()
+        product.color = 'Black'
+        product.name = 'Artel PRO MAX'
+        product.ram = 6
+        product.memory = 128
+        product.price = 1100
+        product.release_date = date(2019,1,13)
+        product.image = 'img'
+        product.company = company
+        product.save()
+
+        return JsonResponse({'Result':company.name})
+     
+
 # Create your views here.
 class AddProductView(View):
+
  
     def post(self, request):
         """
@@ -39,20 +61,45 @@ class AddProductView(View):
 
 
 class GetProduct(View):
-    def get(self, request, id):
+    def get(self, request, name):
         """
-        Get a product by id
+        Get a product by company name 
         args:
             request: HTTP request
             id: product id
         returns:
             HTTP response
         """
-        pass
+        products = Product.objects.filter(company__name=name)
+        result = {
+            'result':[]
+        }
+        for p in products:
+            product_data = {
+                   'name': p.name,
+                   'color': p.color,
+                   'ram': p.ram,
+                   'memory': p.memory,
+                   'price': p.price,
+                   'image': p.image,
+                   'release_date': p.release_date,
+                   'company': p.company.name
+               }
+            result['result'].append(product_data)
+
+        return JsonResponse(result)
+            
+            
+
+
+
+       
+            
+            
 
 
 class getCompany(View):
-    def get(self, request):
+    def get(self, request, name):
         """
         Get a company by id
         args:
@@ -61,16 +108,5 @@ class getCompany(View):
         returns:
             HTTP response
         """
-        company = Company.objects.all()
-        company_json = {}
-        for c in company:
-            company_json[c.name] = {
-                'id': c.id,
-                'logo': c.logo,
-                'description': c.description,
-                'website': c.website
-            }
-        return JsonResponse(company_json, safe=False)
-
-
+  
  
