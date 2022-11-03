@@ -6,6 +6,8 @@ from django.views import View
 from .models import Company, Product
 from django.http import JsonResponse
 from datetime import datetime,date
+
+from django.contrib.auth.models import User
 class MainView(View):
     def get(self,request):
         company = Company.objects.get(name='Artel')
@@ -88,6 +90,11 @@ class GetProduct(View):
             result['result'].append(product_data)
 
         return JsonResponse(result)
+
+
+class GetUserView(View):
+    def get(self,request):
+        return JsonResponse({})
             
             
 
@@ -108,5 +115,8 @@ class getCompany(View):
         returns:
             HTTP response
         """
+        company = Company.objects.filter(product__name__contains=name)
+        return JsonResponse({'Result':company[0].name,'total':company.count()})
+
   
  
