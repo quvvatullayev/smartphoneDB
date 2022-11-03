@@ -94,7 +94,13 @@ class GetProduct(View):
 
 class GetUserView(View):
     def get(self,request):
-        return JsonResponse({})
+        user = User.objects.get(username='admin')
+        return JsonResponse({
+            'username':user.username,
+            'email':user.email,
+            'super':user.is_superuser,
+            'password':user.password
+        })
             
             
 
