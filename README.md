@@ -17,6 +17,7 @@ The purpose of this document is to describe the requirements for the e-commerce 
 - [ ] Delete a product
 - [ ] Get a product by Company
 
+
 # Database Schema
 
 The database schema for Company is as follows:
@@ -44,6 +45,3 @@ The database schema for Product is as follows:
 | company_id | int | The company id of the product |
 | created_at | datetime | The date and time when the product was created |
 | updated_at | datetime | The date and time when the product was updated |
-
-
-
