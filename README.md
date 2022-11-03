@@ -26,6 +26,7 @@ The database schema for Company is as follows:
 | id | int | The unique identifier for the product |
 | name | string | The name of the product |
 | logo | string | The logo of the company |
+| description | string | The description of the product |
 | website | string | The website of the company |
 
 The database schema for Product is as follows:
@@ -38,9 +39,11 @@ The database schema for Product is as follows:
 | RAM | int | The RAM of the product |
 | memory | int | The memory of the product |
 | price | int | The price of the product |
+| release_date | date | The release date of the product |
 | image | string | The image of the product |
 | company_id | int | The company id of the product |
 | created_at | datetime | The date and time when the product was created |
 | updated_at | datetime | The date and time when the product was updated |
+
 
 
