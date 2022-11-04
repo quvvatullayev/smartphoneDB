@@ -1,6 +1,3 @@
-from itertools import product
-from platform import release
-from unicodedata import name
 from django.shortcuts import render
 from django.views import View
 from .models import Company, Product
